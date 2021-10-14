@@ -15,35 +15,47 @@ import EditableTodoList from "./EditableTodoList";
  * App -> TodoApp -> { TodoForm, EditableTodoList }
  */
 
-function TodoApp() {
+function TodoApp({initialTodos = []}) {
+
+  const [todos, setTodos] = useState(initialTodos);
 
   /** add a new todo to list */
   function create(newTodo) {
+    setTodos(todos => [...todos, {...newTodo, id: uuid()}])
   }
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
+    setTodos(todos => todos.map((todo) => 
+      todo.id === updatedTodo.id ? updatedTodo : todo 
+    ))
   }
 
   /** delete a todo by id */
   function remove(id) {
+    setTodos(todos => todos.filter((todo) => todo.id !== id))
   }
+
+  let priorities = todos.map((todo) => todo.priority);
+  
 
   return (
       <main className="TodoApp">
         <div className="row">
 
           <div className="col-md-6">
-            <EditableTodoList /> OR
-            <span className="text-muted">You have no todos.</span>
+          {todos.length > 0 
+            ?  <EditableTodoList /> 
+            : 
+          <span className="text-muted">You have no todos.</span>}
           </div>
 
           <div className="col-md-6">
-            (if no top todo, omit this whole section)
+            {priorities.includes(1) &&  
             <section className="mb-4">
               <h3>Top Todo</h3>
-              <TopTodo />
-            </section>
+              <TopTodo todos={todos}/>
+            </section>}
 
             <section>
               <h3 className="mb-3">Add Nü</h3>
