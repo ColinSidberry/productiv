@@ -4,6 +4,8 @@ import TodoForm from "./TodoForm";
 
 /** Show editable todo item.
  *
+ * State: isBeingEdited: boolean
+ *
  * Props
  * - todo
  * - update(): fn to call to update a todo
@@ -16,6 +18,11 @@ function EditableTodo({ todo, update, remove }) {
   const [isBeingEdited, setIsBeingEdited] = useState(false);
 
   /** Toggle if this is being edited */
+
+  // Goal flip is being edited, maybe safer call to just flip it, ternary
+  // should never had side effects!!!!!!
+  // Set to not edit  => (!edit)
+
   function toggleEdit() {
     isBeingEdited ? setIsBeingEdited(false) : setIsBeingEdited(true);
   }

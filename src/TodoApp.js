@@ -37,13 +37,12 @@ function TodoApp({ initialTodos = [] }) {
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
   }
 
-  let priorities = todos.map((todo) => todo.priority);
-
   return (
     <main className="TodoApp">
       <div className="row">
         <div className="col-md-6">
           {todos.length > 0 ? (
+            // HAve question mark on next line, easier readability
             <EditableTodoList todos={todos} update={update} remove={remove} />
           ) : (
             <span className="text-muted">You have no todos.</span>
@@ -51,7 +50,7 @@ function TodoApp({ initialTodos = [] }) {
         </div>
 
         <div className="col-md-6">
-          {priorities.includes(1) && (
+          {todos.length > 0 && (
             <section className="mb-4">
               <h3>Top Todo</h3>
               <TopTodo todos={todos} />

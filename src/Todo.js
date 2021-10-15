@@ -2,18 +2,24 @@ import React from "react";
 
 /** Simple presentation component for a todo.
  *
+ * State: none
+ *
  * Props:
- * - todo: like { id, title, description, priority }
+ * - todo: { id, title, description, priority }
  *
  * { EditableTodo, TopTodo } -> Todo
  **/
 
-function Todo({id, title, description, priority }) {
+function Todo({ id, title, description, priority }) {
   return (
-      <div className="Todo" id={id}>
-        <div><b>{title}</b> <small>(priority: {priority})</small></div>
-        <div><small>{description}</small></div>
+    <div className="Todo" id={id}>
+      <div>
+        <b>{title}</b> <small>(priority: {priority})</small>
       </div>
+      <div>
+        <small>{description}</small>
+      </div>
+    </div>
   );
 }
 

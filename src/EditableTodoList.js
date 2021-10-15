@@ -3,6 +3,8 @@ import EditableTodo from "./EditableTodo";
 
 /** Show list of editable todos.
  *
+ * State: none
+ *
  * Props:
  * - todos: array of [ todo, ... ]
  * - update(): fn to call to update a todo
@@ -19,7 +21,8 @@ function EditableTodoList({ todos, update, remove }) {
           key={todo.id}
           todo={todo}
           update={update}
-          remove={remove} />
+          remove={remove}
+        />
       ))}
     </div>
   );
