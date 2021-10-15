@@ -14,23 +14,32 @@ import TodoForm from "./TodoForm";
 
 function EditableTodo({todo, update, remove}) {
 
+  const [isBeingEdited, setIsBeingEdited] = useState(false);
+
   /** Toggle if this is being edited */
-  function toggleEdit() { }
+  function toggleEdit(evt) { 
+    isBeingEdited ? 
+      setIsBeingEdited(false) : 
+      setIsBeingEdited(true);
+  }
 
   /** Call remove fn passed to this. */
   function handleDelete(todo) {
-    remove(todo.id)
+    remove(todo.id);
    }
 
   /** Edit form saved; toggle isEditing and update in ancestor. */
-  function handleSave(formData) { }
+  function handleSave(formData) { 
+    //FIXME
+  }
 
   return (
       <div className="EditableTodo">
 
-                EITHER
+                EITHER {/*FIXME either or pattern */}
 
-                <TodoForm />
+                <TodoForm toggleEdit={toggleEdit} />
+                {/*Question: Do we need to pass through createTodo?*/}
 
                 OR
 
@@ -47,7 +56,7 @@ function EditableTodo({todo, update, remove}) {
                       Del
                     </button>
                   </div>
-                  <Todo />
+                  <Todo /> {/**FIXME: add props */}
                 </div>
 
       </div>

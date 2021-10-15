@@ -10,12 +10,12 @@ const INITIAL_DATA = {
  *
  * Props:
  * - initialFormData
- * - handleSave: function to call in parent.
+ * - createTodo: function to call in parent.
  *
  * { TodoApp, EditableTodo } -> TodoForm
  */
 
-function TodoForm({initialFormData = INITIAL_DATA}) {
+function TodoForm({initialFormData = INITIAL_DATA, createTodo,toggleEdit}) {
 
   const [formData, setFormData] = useState(initialFormData)
 
@@ -23,13 +23,17 @@ function TodoForm({initialFormData = INITIAL_DATA}) {
   function handleChange(evt) {
     const {name, value} = evt.target
     setFormData(formData => ({
-      ...form, 
+      ...formData, 
       [name]: value
     }))
    }
 
   /** Call parent function and clear form. */
-  function handleSubmit(evt) { }
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    createTodo(formData);
+    setFormData(initialFormData);
+   }
 
   return (
       <form className="NewTodoForm" onSubmit={handleSubmit}>
@@ -74,9 +78,9 @@ function TodoForm({initialFormData = INITIAL_DATA}) {
               <option value={3}>Meh</option>
             </select>
           </div>
-          <button className="btn-primary rig btn btn-sm NewTodoForm-addBtn">
+          <button className="btn-primary rig btn btn-sm NewTodoForm-addBtn" onClick={toggleEdit}>
             Gø!
-          </button>
+          </button> 
         </div>
 
       </form>
