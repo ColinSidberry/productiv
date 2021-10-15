@@ -12,54 +12,60 @@ import TodoForm from "./TodoForm";
  * EditableTodoList -> EditableTodo -> { Todo, TodoForm }
  */
 
-function EditableTodo({todo, update, remove}) {
-
+function EditableTodo({ todo, update, remove }) {
   const [isBeingEdited, setIsBeingEdited] = useState(false);
 
   /** Toggle if this is being edited */
-  function toggleEdit(evt) { 
-    isBeingEdited ? 
-      setIsBeingEdited(false) : 
-      setIsBeingEdited(true);
+  function toggleEdit() {
+    isBeingEdited ? setIsBeingEdited(false) : setIsBeingEdited(true);
   }
 
   /** Call remove fn passed to this. */
-  function handleDelete(todo) {
+  function handleDelete() {
     remove(todo.id);
-   }
+  }
 
   /** Edit form saved; toggle isEditing and update in ancestor. */
-  function handleSave(formData) { 
-    //FIXME
+  function handleSave(formData) {
+    console.log(
+      formData.id,
+      formData.title,
+      formData.description,
+      "formdata from EditiableTodo.js"
+    );
+    update(formData);
+    toggleEdit();
   }
 
   return (
-      <div className="EditableTodo">
-
-                EITHER {/*FIXME either or pattern */}
-
-                <TodoForm toggleEdit={toggleEdit} />
-                {/*Question: Do we need to pass through createTodo?*/}
-
-                OR
-
-                <div className="mb-3">
-                  <div className="float-right text-sm-right">
-                    <button
-                        className="EditableTodo-toggle btn-link btn btn-sm"
-                        onClick={toggleEdit}>
-                      Edit
-                    </button>
-                    <button
-                        className="EditableTodo-delBtn btn-link btn btn-sm text-danger"
-                        onClick={handleDelete}>
-                      Del
-                    </button>
-                  </div>
-                  <Todo /> {/**FIXME: add props */}
-                </div>
-
-      </div>
+    <div className="EditableTodo">
+      {isBeingEdited ? (
+        <TodoForm initialFormData={todo} createTodo={handleSave} />
+      ) : (
+        <div className="mb-3">
+          <div className="float-right text-sm-right">
+            <button
+              className="EditableTodo-toggle btn-link btn btn-sm"
+              onClick={toggleEdit}
+            >
+              Edit
+            </button>
+            <button
+              className="EditableTodo-delBtn btn-link btn btn-sm text-danger"
+              onClick={handleDelete}
+            >
+              Del
+            </button>
+          </div>
+          <Todo
+            id={todo.id}
+            title={todo.title}
+            description={todo.description}
+            priority={todo.priority}
+          />
+        </div>
+      )}
+    </div>
   );
 }
 
